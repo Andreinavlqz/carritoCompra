@@ -1,8 +1,9 @@
-name: Deploy to GitHub Pages
+name: Deploy
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
 
 permissions:
   contents: read
@@ -14,28 +15,53 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  build-and-deploy:
+  build:
+    name: Build
     runs-on: ubuntu-latest
-    
+
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-      
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18'
-        cache: 'npm'
-        
-    - name: Install dependencies
-      run: npm ci
-      
-    - name: Build project
-      run: npm run build
-      
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      if: github.ref == 'refs/heads/main'
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./dist
+      # Paso 1 - Checkout del repositorio
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      # Paso 2 - Configurar Node.js
+      - name: Setup Node
+        uses: actions/setup-node@v4  
+        with:
+          node-version: 18  # Cambiamos de Node.js 16 a Node.js 18 para tener structuredClone
+
+      # Paso 3 - Instalar dependencias
+      - name: Install dependencies
+        run: npm ci
+
+      # Paso 4 - Construir el proyecto
+      - name: Build project
+        run: npm run build
+
+      # Paso 5 - Subir archivos listos para producción con v4
+      - name: Upload production-ready build files
+        uses: actions/upload-artifact@v4  
+        with:
+          name: production-files
+          path: ./dist
+
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    if: ${{ github.ref == 'refs/heads/main' }}
+
+    steps:
+      # Paso 6 - Descargar los archivos de producción con v4
+      - name: Download artifact
+        uses: actions/download-artifact@v4  
+        with:
+          name: production-files
+          path: ./dist
+
+      # Paso 7 - Desplegar a GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
