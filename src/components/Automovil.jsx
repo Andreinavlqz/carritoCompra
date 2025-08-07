@@ -18,7 +18,7 @@ const Automovil = ({ automovil, addToCart }) => {
     <>
       <div className="col-md-8 col-lg-4 my-4 row align-items-center mx-auto">        
         <div className="col-10 row align-items-center mx-auto">
-          <img className="img-fluid" src={`./public/img/${image}.jpg`} alt="imagen automóvil" />  
+          <img className="img-fluid" src={`/img/${image}.jpg`} alt="imagen automóvil" />  
           <h3 className="text-black fs-4 fw-bold text-uppercase">{name}</h3>
           <p>{brand}</p>
           <p>Máxima velocidad {topSpeed}</p>

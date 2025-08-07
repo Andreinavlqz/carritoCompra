@@ -12,13 +12,13 @@ const Header = ({ cart = [], removeFromCart, decreaseQuantity, increaseQuantity,
       <div className="row justify-content-center justify-content-md-between">
         <div className="col-8 col-md-3">
           <a href="index.html">
-            <img className="img-fluid" src="./public/img/Mustang-LOGO.svg" alt="imagen logo" />
+            <img className="img-fluid" src="/img/Mustang-LOGO.svg" alt="imagen logo" />
           </a>
         </div>
         <nav className="col-md-6 a mt-5 d-flex align-items-start justify-content-end">
           <div className="carrito-container">
             <div className="carrito">
-              <img className="img-fluid" src="./public/img/carrito.png" alt="imagen carrito" />
+              <img className="img-fluid" src="/img/carrito.png" alt="imagen carrito" />
               
               <div id="carrito-content" className="carrito-content">
   {
@@ -39,7 +39,7 @@ const Header = ({ cart = [], removeFromCart, decreaseQuantity, increaseQuantity,
             {cart.map(({ id, name, image, price, quantity }) => (
               <tr key={id}>
                 <td className="align-middle">
-                  <img className="img-fluid" src={`./public/img/${image}.jpg`} alt="imagen automóvil" />
+                  <img className="img-fluid" src={`/img/${image}.jpg`} alt="imagen automóvil" />
                 </td>
                 <td className="align-middle">{name}</td>
                 <td className="fw-bold align-middle">${price.toLocaleString()}</td>
