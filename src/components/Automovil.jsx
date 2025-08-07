@@ -1,6 +1,17 @@
 import React from 'react'
 
 const Automovil = ({ automovil, addToCart }) => {
+  // Validación de props
+  if (!automovil) {
+    return (
+      <div className="col-md-8 col-lg-4 my-4 row align-items-center mx-auto">
+        <div className="col-10 row align-items-center mx-auto">
+          <p>Automóvil no disponible</p>
+        </div>
+      </div>
+    )
+  }
+
   const { name, image, brand, price, topSpeed, year } = automovil
 
   return (

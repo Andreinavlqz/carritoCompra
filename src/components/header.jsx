@@ -4,7 +4,7 @@ import { useState } from 'react'
 
 
 
-const Header = ({ cart, removeFromCart, decreaseQuantity, increaseQuantity, clearCart, cartTotal }) => {
+const Header = ({ cart = [], removeFromCart, decreaseQuantity, increaseQuantity, clearCart, cartTotal = 0 }) => {
   
   return (
     <header className="py-3 header">
